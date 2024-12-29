@@ -1,0 +1,30 @@
+@use "global" as *;
+@use "sass:math";
+
+.p-drawer {
+  background-color: beige; // test
+  padding: rem(100) 0 rem(80);
+}
+
+// .p-drawer__inner {
+// }
+
+// .p-drawer__nav-items {
+// }
+
+// .p-drawer__nav-item {
+// }
+
+.p-drawer__nav-item a {
+  display: flex;
+  gap: rem(10);
+  padding: rem(10);
+}
+
+/* フォーカスされている要素を明確に示 */
+:focus-visible {
+}
+
+/* 入力デバイスのいずれかにhoverに対応している入力デバイスが含まれる場合に適用 */
+@media (any-hover: hover) {
+}
