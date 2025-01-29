@@ -15,7 +15,7 @@ function my_add_custom_post_works()
         'all_items' => 'Works', // 全投稿一覧のリンクのテキスト
       ),
       'public' => true,
-      'has_archive' =>  true,
+      'has_archive' =>  true, // アーカイブを有効にする
       'menu_position' => 6,   //メニュー表示位置
       'menu_icon' => 'dashicons-building',   // メニューアイコン
       'show_in_rest' => true, // ブロックエディタを有効にする
