@@ -2,6 +2,10 @@
 // src：参照元指定、dest：出力先指定、watch：ファイル監視、series：直列処理、parallel：並列処理
 const { src, dest, watch, series, parallel } = require("gulp");
 
+// 追加モジュール
+const changed = require("gulp-changed"); // 変更されたファイルのみを対象にする
+const webp = require("gulp-webp"); // WebP生成
+
 // 入出力先指定
 const srcBase = './src';
 const distBase = `./dist/wp-content/themes/themeName`;
@@ -78,6 +82,7 @@ const imageminPngquant = require("imagemin-pngquant"); // pngの高圧縮に必�
 const imageminSvgo = require("imagemin-svgo");  // svgの高圧縮に必要
 const imgImagemin = () => {
   return src(srcPath.img)
+  // .pipe(changed(distPath.img)) // 変更があった画像のみ処理対象に（一時的に無効）
   .pipe(imagemin([
     imageminMozjpeg({
       quality: 80
@@ -93,6 +98,8 @@ const imgImagemin = () => {
     }
   ))
   .pipe(dest(distPath.img))
+  .pipe(webp()) // WebP形式に変換
+  .pipe(dest(distPath.img)) // WebPファイルも同じディレクトリに出力
 }
 
 // ファイルの変更を検知
