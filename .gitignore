@@ -1,0 +1,5 @@
+dist/wp-content/themes/themeName/assets/css/
+dist/wp-content/themes/themeName/assets/images/
+dist/wp-content/themes/themeName/assets/js/
+node_modules/
+package-lock.json

@@ -1,0 +1,41 @@
+@use 'global' as *;
+@use 'sass:math';
+
+.c-section-heading1 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: rem(26);
+  font-weight: $bold;
+  letter-spacing: calc(5.3em / 53);
+  @include mq() {
+    font-size: rem(40);
+  }
+
+}
+
+.c-section-heading1[data-english]::before {
+  margin-bottom: rem(2);
+  font-size: rem(14);
+  font-weight: $bold;
+  letter-spacing: calc(2.8em / 28);
+  content: attr(data-english);
+  text-transform: uppercase;
+  @include mq() {
+    margin-bottom: rem(4);
+    font-size: rem(20);
+    letter-spacing: calc(2em/ 20);
+  }
+}
+
+.c-section-heading1::after {
+  margin-top: rem(6);
+  width: rem(39);
+  height: rem(4);
+  content: "";
+  @include mq() {
+    margin-top: rem(9);
+    width: rem(60);
+    height: rem(7);
+  }
+}

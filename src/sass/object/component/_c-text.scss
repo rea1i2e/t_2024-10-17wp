@@ -1,0 +1,15 @@
+@use 'global' as *;
+@use 'sass:math';
+
+.c-text {
+  font-size: rem(14);
+  font-style: normal;
+  letter-spacing: calc(0.84em / 28);
+  line-height: calc(42 / 28);
+  text-align: justify;
+  @include mq() {
+    font-size: rem(16);
+    letter-spacing: calc(0.48em / 16);
+    line-height: calc(30 / 16);
+  }
+}
