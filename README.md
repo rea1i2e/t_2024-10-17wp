@@ -41,9 +41,9 @@ __1人での開発の場合は任意のタイミングで手順3と4を行えば
 - ポート番号を変更した場合は、gulpfile.jsの22行目を書き換える必要あり
 
 ## 作業ディレクトリについて
-- sassの記述はsrcフォルダの中で行う
+- sass, jsの記述はsrcフォルダの中で行う
 - 画像はsrcフォルダのimagesの中に格納する
-- phpとjsはdist直下のファイルに直接記述する
+- phpはdist直下のファイルに直接記述する
 - プラグインは管理画面からインストールするとdist/wp-content/plugins/に自動的に格納される
 - メディアは管理画面からアップロードするとdist/wp-content/uploads/フォルダに自動的に格納される（ただし容量が増えすぎる場合はGitHub等で管理すべきでない。管理から外すときは.wp-env.jsonの18行目を消去する。）
 - src/sass/global/_breakpoints.scssにある変数をpc or spに設定することで、spファースト・pcファーストの切り替え（初期値：sp）

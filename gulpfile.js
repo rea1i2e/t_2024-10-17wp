@@ -5,6 +5,8 @@ const { src, dest, watch, series, parallel } = require("gulp");
 // 追加モジュール
 const changed = require("gulp-changed"); // 変更されたファイルのみを対象にする
 const webp = require("gulp-webp"); // WebP生成
+const webpackStream = require("webpack-stream"); // Webpack処理
+const named = require("vinyl-named"); // ファイル名指定
 
 // 入出力先指定
 const srcBase = './src';
@@ -12,11 +14,13 @@ const distBase = `./dist/wp-content/themes/themeName`;
 const srcPath = {
   css: srcBase + '/sass/**/*.scss',
   img: srcBase + '/images/**/*',
+  js: srcBase + '/js/index.js', // エントリーポイント
 }
 const distPath = {
   css: distBase + '/assets/css/',
   img: distBase + '/assets/images/',
-  js: distBase + '/assets/js/**/*.js',
+  js: distBase + '/assets/js/', // JS出力先
+  jsWatch: distBase + '/assets/js/**/*.js', // JS監視用
   php: distBase + '/**/*.php'
 }
 
@@ -102,11 +106,55 @@ const imgImagemin = () => {
   .pipe(dest(distPath.img)) // WebPファイルも同じディレクトリに出力
 }
 
+// JavaScript処理
+const jsWebpack = () => {
+  return src(srcPath.js)
+    .pipe(
+      plumber({
+        errorHandler: notify.onError("Error: <%= error.message %>"),
+      })
+    )
+    .pipe(named())
+    .pipe(webpackStream({
+      mode: "development",
+      devtool: "source-map",
+      entry: {
+        bundle: "./src/js/index.js" // エントリーポイント
+      },
+      output: {
+        filename: "bundle.js"
+      },
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"]
+              }
+            }
+          }
+        ]
+      },
+      resolve: {
+        extensions: [".js"]
+      }
+    }))
+    .pipe(dest(distPath.js))
+    .pipe(notify({
+      message: 'JavaScriptをバンドルしました！',
+      onLast: true
+    }));
+};
+
 // ファイルの変更を検知
 const watchFiles = () => {
   watch(srcPath.css, series(cssSass, browserSyncReload))
   watch(srcPath.img, series(imgImagemin, browserSyncReload))
-  watch(distPath.js, series(browserSyncReload))
+  watch(srcBase + '/js/**/*.js', series(jsWebpack, browserSyncReload)) // JS監視
+  watch(distPath.jsWatch, series(browserSyncReload))
   watch(distPath.php, series(browserSyncReload))
 }
 
@@ -125,4 +173,4 @@ const clean = (done) => {
 };
 
 // 実行
-exports.default = series(series(clean, imgImagemin, cssSass), parallel(watchFiles, browserSyncFunc));
+exports.default = series(series(clean, imgImagemin, cssSass, jsWebpack), parallel(watchFiles, browserSyncFunc));

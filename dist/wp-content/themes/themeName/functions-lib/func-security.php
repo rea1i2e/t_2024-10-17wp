@@ -11,6 +11,7 @@
  */
 remove_action('wp_head', 'wp_generator');
 
+
 /**
  * 投稿者一覧ページを自動で生成されないようにする
  * @see　https://mucca-design.com/auther-archive-ineffective/
