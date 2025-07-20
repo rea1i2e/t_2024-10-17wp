@@ -1,8 +1,0 @@
-@use 'global' as *;
-
-.l-breadcrumb {
-  margin-top: rem(12);
-  @include mq() {
-    margin-top: rem(17);
-  }
-}
