@@ -10,7 +10,7 @@ const named = require("vinyl-named"); // ファイル名指定
 
 // 入出力先指定
 const srcBase = './src';
-const distBase = `./dist/wp-content/themes/themeName`;
+const distBase = `./dist/wp-content/themes/yamaguchi-economy`;
 const srcPath = {
   css: srcBase + '/sass/**/*.scss',
   img: srcBase + '/images/**/*',
@@ -43,16 +43,13 @@ const sassGlob = require('gulp-sass-glob-use-forward'); // globパターンを�
 const plumber = require("gulp-plumber"); // エラーが発生しても強制終了させない
 const notify = require("gulp-notify"); // エラー発生時のアラート出力
 const postcss = require("gulp-postcss"); // PostCSS利用
-const cssnext = require("postcss-cssnext"); // 最新CSS使用を先取り
+const autoprefixer = require("autoprefixer"); // ベンダープレフィックス自動付与
 const sourcemaps = require("gulp-sourcemaps"); // ソースマップ生成
 const browsers = [ // 対応ブラウザの指定
   'last 2 versions',
-  '> 5%',
-  'ie = 11',
-  'not ie <= 10',
-  'ios >= 8',
-  'and_chr >= 5',
-  'Android >= 5',
+  '> 1%',
+  'not dead',
+  'not ie 11'
 ]
 const cssSass = () => {
   return src(srcPath.css)
@@ -66,11 +63,7 @@ const cssSass = () => {
       includePaths: ['src/sass'], // 相対パス省略
       outputStyle: 'expanded' // 出力形式をCSSの一般的な記法にする
     }))
-    .pipe(postcss([cssnext({
-      features: {
-        rem: false
-      }
-    },browsers)])) // 最新CSS使用を先取り
+    .pipe(postcss([autoprefixer({ overrideBrowserslist: browsers })])) // ベンダープレフィックス自動付与
     .pipe(sourcemaps.write('./')) // ソースマップの出力先をcssファイルから見たパスに指定
     .pipe(dest(distPath.css)) // 
     .pipe(notify({ // エラー発生時のアラート出力
