@@ -128,6 +128,11 @@ const jsWebpack = () => {
                 presets: ["@babel/preset-env"]
               }
             }
+          },
+          // CSSローダーの設定を追加
+          {
+            test: /\.css$/,
+            use: ["style-loader", "css-loader"]
           }
         ]
       },
