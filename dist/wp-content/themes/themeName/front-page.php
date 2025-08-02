@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <main>
-  <?php get_template_part('parts/project/mv'); ?>
+  <?php get_template_part('parts/project/top-mv'); ?>
   <?php get_template_part('parts/project/hero-paption'); ?>
 
   <div class="l-inner">
@@ -11,7 +11,7 @@
       $args = [
         'sp' => true,
         'directory' => '/dummy/',
-        'file' => 'dummy1',
+        'file' => 'dummy2',
         'type' => 'jpg',
         'width' => '1035',
         'height' => '690',

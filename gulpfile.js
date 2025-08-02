@@ -10,7 +10,7 @@ const named = require("vinyl-named"); // ファイル名指定
 
 // 入出力先指定
 const srcBase = './src';
-const distBase = `./dist/wp-content/themes/yamaguchi-economy`;
+const distBase = `./dist/wp-content/themes/themeName`;
 const srcPath = {
   css: srcBase + '/sass/**/*.scss',
   img: srcBase + '/images/**/*',
