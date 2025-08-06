@@ -11,11 +11,12 @@
  * ・日付ページ is_date()
  * ・検索結果ページ is_search()
  * ・404ページ is_404()
- * ・メンバーズページ is_member()
+ * ・メンバーズページ is_member() ※会員専用ページ／会員制ページ
  */
 
+ // 投稿者一覧ページ、タグページ、日付ページを404エラーにする
 add_action('template_redirect', function() {
-  if (is_author() || is_category() || is_tag() || is_date() ) {
+  if (is_author() || is_tag() || is_date() ) {
     global $wp_query;
     $wp_query->set_404();
     status_header(404);
