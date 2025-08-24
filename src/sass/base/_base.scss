@@ -61,12 +61,12 @@
   }
 }
 
-.admin-bar {
+:root:has(.admin-bar) {
   --wp-admin-bar-height: 32px;
 }
 
 @media (max-width: 782px) {
-  .admin-bar {
+  :root:has(.admin-bar) {
     --wp-admin-bar-height: 46px;
   }
 }
@@ -79,8 +79,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; // test 構築中だけコメントアウト
   scroll-padding-top: calc(var(--header-height) + var(--wp-admin-bar-height)) !important;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
