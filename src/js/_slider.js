@@ -1,6 +1,6 @@
-import '@splidejs/splide/dist/css/splide-core.min.css';
-import { Splide } from '@splidejs/splide';
-import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+import "@splidejs/splide/dist/css/splide-core.min.css";
+import { Splide } from "@splidejs/splide";
+import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 
 /**
  * トップページ メインビジュアル
@@ -12,6 +12,8 @@ if (topMvSplide) {
     type: "fade",
     rewind: true,
     autoplay: true,
+    speed: 1000,
+    pauseOnHover: false, // カーソルが乗ってもスクロールを停止させない
     perPage: 1,
     perMove: 1,
     gap: 0,
