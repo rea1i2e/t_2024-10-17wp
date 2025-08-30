@@ -42,7 +42,7 @@ $images = [
       <ul class="p-top-mv__slider-list splide__list">
         <?php foreach ($images as $args): ?>
         <li class="p-top-mv__slider-item splide__slide">
-          <?php get_template_part('parts/common/picture', null, $args); ?>
+          <?php get_template_part('components/picture', null, $args); ?>
         </li>
         <?php endforeach; ?>
       </ul>
