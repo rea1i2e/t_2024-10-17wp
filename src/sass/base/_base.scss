@@ -8,45 +8,42 @@
   font-display: swap;
 }
 
-@if $startFrom == sp {
-  //スマホファースト
-  html {
-    //375px~767px
-    font-size: 16px;
+html {
+  //375px~767px
+  font-size: 16px;
 
-    //~375px
-    @media (max-width: 375px) {
-      font-size: vw(375, 16);
-    }
-
-    @include mq("md") {
-      font-size: vw($inner-pc + $padding-pc * 2, 16);
-    }
-
-    //inner~max-screen
-    @media (min-width: #{$inner-pc + $padding-pc * 2}px) {
-      font-size: 16px;
-    }
+  //~375px
+  @media (max-width: 375px) {
+    font-size: vw(375, 16);
   }
-} @else {
-  //PCファースト
-  html {
+
+  @include mq("md") {
+    font-size: vw($inner-pc + $padding-pc * 2, 16);
+  }
+
+  //inner~max-screen
+  @media (min-width: #{$inner-pc + $padding-pc * 2}px) {
     font-size: 16px;
-
-    @media (max-width: #{$inner-pc + $padding-pc * 2}px) {
-      font-size: vw($inner-pc + $padding-pc * 2, 16);
-    }
-
-    @include mq("md") {
-      font-size: 16px;
-    }
-
-    //~375px
-    @media (max-width: 375px) {
-      font-size: vw(375, 16);
-    }
   }
 }
+
+//PCファースト
+// html {
+//   font-size: 16px;
+
+//   @media (max-width: #{$inner-pc + $padding-pc * 2}px) {
+//     font-size: vw($inner-pc + $padding-pc * 2, 16);
+//   }
+
+//   @include mq("md") {
+//     font-size: 16px;
+//   }
+
+//   //~375px
+//   @media (max-width: 375px) {
+//     font-size: vw(375, 16);
+//   }
+// }
 
 :root {
   --wp-admin-bar-height: 0px;
@@ -56,8 +53,9 @@
   --color-black: #111;
   --color-white: #fff;
 
+  --header-height: #{rem(60)};
   @include mq() {
-    --header-height: #{rem(90)};
+    --header-height: #{rem(100)};
   }
 }
 
@@ -104,20 +102,19 @@ main {
 }
 
 /* pcの電話番号発信対応 */
-@if $startFrom == sp {
-  a[href^="tel:"] {
-    @include mq() {
-      pointer-events: none;
-    }
-  }
-} @else {
-  a[href^="tel:"] {
+a[href^="tel:"] {
+  @include mq() {
     pointer-events: none;
-    @include mq() {
-      pointer-events: initial;
-    }
   }
 }
+
+// PCファースト
+// a[href^="tel:"] {
+//   pointer-events: none;
+//   @include mq() {
+//     pointer-events: initial;
+//   }
+// }
 
 a {
   text-decoration: none;
