@@ -30,22 +30,18 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: |
-          cd gulp
-          npm install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: Build project
-        run: |
-          cd gulp
-          npm run build
+        run: npm run build
         env:
           CI: true
 
       - name: Verify build output
         run: |
-          ls -la assets/
-          if [ ! -d "assets" ]; then
-            echo "Build failed: assets directory not found"
+          ls -la dist/
+          if [ ! -d "dist" ]; then
+            echo "Build failed: dist directory not found"
             exit 1
           fi
 
@@ -59,7 +55,7 @@ jobs:
           error_details=""
           
           # PHPファイルの構文チェック
-          for file in $(find . -name "*.php" -not -path "./gulp/*"); do
+          for file in $(find dist/wp-content/themes/themeName -name "*.php"); do
             if ! php -l "$file" > /dev/null 2>&1; then
               echo "PHP syntax error in: $file"
               php_errors=$((php_errors + 1))
@@ -88,16 +84,14 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /wp-content/themes/themeName/
+          local-dir: ./dist/wp-content/themes/
+          server-dir: /wp-content/themes/
           exclude: |
             **/.git*
             **/.git*/**
-            **/gulp/**
-            **/src/**
+            **/node_modules/**
             **/.DS_Store
             **/Thumbs.db
-            **/README.md
           log-level: verbose
 
       - name: Calculate build time
