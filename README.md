@@ -5,17 +5,15 @@
 - Docker（https://matsuand.github.io/docs.docker.jp.onthefly/get-docker/）インストール済み
 
 ## 使い方（ゼロからローカル環境構築を始める場合）
+
 1. クローンorダウンロードしたフォルダをvscode等で開く
-2. dist/wp-content/themes/themeName/のthemeNameを任意のテーマ名に変更
-2. .wp-env.jsonの16行目のthemeNameを任意のテーマ名に変更
-3. 必要があれば.wp-env.jsonのWordPressのバージョン(2行目)とPHPのバージョン(3行目)を書き換える（本番環境と合わせておくと良い）
-4. gulpfile.jsの7行目のthemeNameを任意のテーマ名に変更
-5. style.cssの中身を任意の内容に変更する
-6. ターミナルを開き、`npm i`とコマンドを入力
-7. node_modulesとpackage-lock.jsonが生成されるのを確認する
-8. `npm run wp-env start`とコマンド入力し、wp-envを起動（WordPressの環境構築が行われる）
-9. `npx gulp`とコマンドを入力するとgulpが動き出す（gulpはブラウザシンク、scssコンパイル、画像圧縮の役割を担っている）
-10. WordPressの管理画面（/wp-admin）に入り、テーマをこれから開発するものに変更（初期ユーザー名`admin`、初期パス`password`）
+2. テーマディレクトリ名を一括置換（themeName → 任意のテーマディレクトリ名）
+7. style.cssの中身（テーマ名など）を任意の内容に変更する
+8. ターミナルを開き、`npm i`とコマンドを入力
+9. node_modulesとpackage-lock.jsonが生成されるのを確認する
+10. `npm run wp-env start`とコマンド入力し、wp-envを起動（WordPressの環境構築が行われる）
+11. `npx gulp`とコマンドを入力するとgulpが動き出す（gulpはブラウザシンク、scssコンパイル、画像圧縮の役割を担っている）
+12. WordPressの管理画面（/wp-admin）に入り、テーマをこれから開発するものに変更（初期ユーザー名`admin`、初期パス`password`）
 
 ## 使い方（既に開発が進んでいる状態からローカル環境構築を始める場合）
 1. クローンorダウンロードしたフォルダをvscode等で開く
@@ -59,8 +57,39 @@ __1人での開発の場合は任意のタイミングで手順3と4を行えば
 - パッケージインストール `npm i`
 - gulp起動 `npx gulp`
 
+## 本番デプロイ（CI/CD）
+
+### 🚀 自動デプロイ機能
+このプロジェクトには GitHub Actions を使用した自動デプロイ機能が組み込まれています。
+
+### ⚙️ 必要な設定
+
+#### 1. GitHub Secrets 設定
+リポジトリの `Settings` > `Secrets and variables` > `Actions` で以下を設定：
+
+```
+FTP_SERVER      # FTPサーバーアドレス
+FTP_USERNAME    # FTPユーザー名  
+FTP_PASSWORD    # FTPパスワード
+TEST_URL        # テスト環境URL（Discord通知用）
+DISCORD_WEBHOOK # Discord Webhook URL（任意）
+```
+
+#### 2. ワークフロー動作確認
+- `main` ブランチにpushすると自動実行
+- PHPシンタックスチェック → ビルド → FTPデプロイの順で実行
+- Discord通知でデプロイ結果を確認可能
+
+### 📋 デプロイ内容
+- `dist/wp-content/themes/` 配下のテーマファイルのみをデプロイ
+- プラグインやメディアファイルは対象外
+- PHPシンタックスエラーがあっても継続実行（警告のみ）
+
+### 🛠️ トラブルシューティング
+- デプロイエラー時は GitHub Actions のログを確認
+- FTP設定やパーミッション問題が主な原因
+- テスト環境でWordPressが正常動作していることを確認
+
 ## 備考
-- CSS設計はFLOCSS(https://github.com/hiloki/flocss )を参考にしている
 - ベースの環境はhttps://github.com/koyumi-takaishi/WordPress_dev_Docker_wp-env
-- スマホファースト
 - rem記述を前提
