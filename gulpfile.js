@@ -171,4 +171,5 @@ const clean = (done) => {
 };
 
 // 実行
+exports.build = series(clean, imgImagemin, cssSass, jsWebpack);
 exports.default = series(series(clean, imgImagemin, cssSass, jsWebpack), parallel(watchFiles, browserSyncFunc));
