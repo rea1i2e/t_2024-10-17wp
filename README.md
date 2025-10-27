@@ -93,3 +93,21 @@ DISCORD_WEBHOOK # Discord Webhook URL（任意）
 ## 備考
 - ベースの環境はhttps://github.com/koyumi-takaishi/WordPress_dev_Docker_wp-env
 - rem記述を前提
+
+
+## GitHub CLIを使った導入手順
+
+### 新規リポジトリ作成＋クローンする場合は、コマンドを実行
+```bash
+gh repo create 新規リポジトリ名 \
+  --template rea1i2e/t_2024-10-17wp \
+  --private \
+  --description "リポジトリの説明文" && \
+sleep 5 && \
+gh repo clone GitHubのユーザー名/新規リポジトリ名
+```
+
+- 説明文の修正は、コマンドを実行
+```bash
+gh repo edit GitHubのユーザー名/新規リポジトリ名 --description "新しい説明文"
+```
