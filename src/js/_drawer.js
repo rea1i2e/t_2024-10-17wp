@@ -56,7 +56,10 @@ drawer.addEventListener("click", function (event) {
 
 // ブレイクポイントを超えたとき、ドロワーメニューを閉じる
 window.addEventListener("resize", function () {
-  if (window.innerWidth >= 768) {
+  if (window.innerWidth <= 768) {
     closeDrawer();
   }
 });
+
+// 作業用
+// openDrawer();
