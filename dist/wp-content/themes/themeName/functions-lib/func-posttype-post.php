@@ -26,3 +26,4 @@ $labels->not_found_in_trash = 'ゴミ箱に'.$name.'は見つかりませんで�
 }
 add_action( 'init', 'Change_objectlabel' );
 add_action( 'admin_menu', 'Change_menulabel' );
+
