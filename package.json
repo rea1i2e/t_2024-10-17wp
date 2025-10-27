@@ -2,7 +2,11 @@
   "scripts": {
     "build": "gulp build",
     "wp-env": "wp-env",
-    "wp": "wp-env run cli wp"
+    "wp": "wp-env run cli wp",
+    "export": "wp-env run cli wp db export sql/wpenv.sql",
+    "import": "wp-env run cli wp db import sql/wpenv.sql",
+    "cli": "wp-env run cli",
+    "admin": "open http://localhost:3000/wp-admin/"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
