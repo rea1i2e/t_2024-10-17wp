@@ -158,16 +158,12 @@ const watchFiles = () => {
 
 // clean
 const del = require('del');
-const delPath = {
-	css: distBase + '/css/style.css',
-	cssMap: distBase + '/css/style.css.map',
-  img: distBase + '/images/',
-}
-const clean = (done) => {
-  del(delPath.css, { force: true });
-  del(delPath.cssMap, { force: true });
-  del(delPath.img, { force: true });
-  done();
+const clean = () => {
+  return del([
+    distBase + '/assets/css/style.css',
+    distBase + '/assets/css/style.css.map',
+    distBase + '/assets/images/**'
+  ], { force: true });
 };
 
 // 実行
